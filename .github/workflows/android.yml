@@ -40,9 +40,8 @@ jobs:
         run: |
           echo 'Gradle failure summary:'
           grep -iE 'failure:|what went wrong:|execution failed|error|resource|aapt|failed' build.log | tail -60 || true
-          while IFS= read -r line; do
-            echo "::error title=Gradle::$line"
-          done < <(grep -iE 'failure:|what went wrong:|execution failed|error|resource|aapt|failed' build.log | tail -60)
+          SUMMARY=$(grep -iE 'failure:|what went wrong:|execution failed|error|resource|aapt|failed' build.log | tail -60 | tr '\n' ' ' | cut -c1-6000)
+          echo "::error title=Gradle::$SUMMARY"
 
       - name: Upload Gradle outputs for diagnosis
         if: always()
