@@ -29,7 +29,7 @@ jobs:
           gradle-version: '8.2'
 
       - name: Build APK
-        run: gradle --no-daemon :android:assembleDebug
+        run: gradle --no-daemon --stacktrace :android:assembleDebug
 
       - name: Verify APK
         run: test -s android/build/outputs/apk/debug/android-debug.apk

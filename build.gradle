@@ -64,7 +64,7 @@ project(":core") {
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
         implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        compile('com.googlecode.json-simple:json-simple:1.1.1') {
+        implementation('com.googlecode.json-simple:json-simple:1.1.1') {
             exclude group: 'org.hamcrest', module: 'hamcrest-core'
         }
     }
