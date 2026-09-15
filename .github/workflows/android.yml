@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
@@ -29,7 +29,7 @@ jobs:
           gradle-version: '8.2'
 
       - name: Build APK
-        run: gradle --no-daemon --stacktrace :android:assembleDebug
+        run: gradle --no-daemon --stacktrace --console=plain :android:assembleDebug
 
       - name: Verify APK
         run: test -s android/build/outputs/apk/debug/android-debug.apk
