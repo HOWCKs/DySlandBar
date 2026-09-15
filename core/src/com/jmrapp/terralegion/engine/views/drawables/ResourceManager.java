@@ -74,7 +74,9 @@ public class ResourceManager {
 	
 	public BitmapFont getFont(String id, String file, Color color, int size) {
 		FreeTypeFontGenerator gen = new FreeTypeFontGenerator(Gdx.files.internal(file));
-		BitmapFont font = gen.generateFont(size);
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = size;
+		BitmapFont font = gen.generateFont(parameter);
 		font.setColor(color);
 		font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		return font;

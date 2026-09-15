@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.ObjectMap;
  */
 public class AnimationDrawable implements Drawable {
 
-    private ObjectMap<Type, Animation> animations = new ObjectMap<Type, Animation>();
-    private Animation animation;
+    private ObjectMap<Type, Animation<TextureRegion>> animations = new ObjectMap<Type, Animation>();
+    private Animation<TextureRegion> animation;
 
     public enum Type {
         WALK_UP, WALK_RIGHT, WALK_DOWN, WALK_LEFT
@@ -52,12 +52,12 @@ public class AnimationDrawable implements Drawable {
         AnimationDrawable.addMiddleReversed(tempSpritesLeft, false);
         AnimationDrawable.addMiddleReversed(tempSpritesRight, false);
 
-        animations.put(Type.WALK_DOWN, new Animation(1f / (frames * 1.5f), tempSpritesDown));
-        animations.put(Type.WALK_UP, new Animation(1f / (frames * 1.5f), tempSpritesUp));
-        animations.put(Type.WALK_LEFT, new Animation(1f / (frames * 1.5f), tempSpritesLeft));
-        animations.put(Type.WALK_RIGHT, new Animation(1f / (frames * 1.5f), tempSpritesRight));
+        animations.put(Type.WALK_DOWN, new Animation<TextureRegion>(1f / (frames * 1.5f), tempSpritesDown));
+        animations.put(Type.WALK_UP, new Animation<TextureRegion>(1f / (frames * 1.5f), tempSpritesUp));
+        animations.put(Type.WALK_LEFT, new Animation<TextureRegion>(1f / (frames * 1.5f), tempSpritesLeft));
+        animations.put(Type.WALK_RIGHT, new Animation<TextureRegion>(1f / (frames * 1.5f), tempSpritesRight));
 
-        for(Animation animation : animations.values()) {
+        for(Animation<TextureRegion> animation : animations.values()) {
             animation.setPlayMode(Animation.PlayMode.LOOP);
         }
 

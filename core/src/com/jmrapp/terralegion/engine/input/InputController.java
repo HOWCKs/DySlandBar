@@ -133,6 +133,10 @@ public class InputController implements GestureListener {
 	}
 
 	@Override
+	public void pinchStop() {
+	}
+
+	@Override
 	public boolean tap(float arg0, float arg1, int arg2, int button) {
 		for (InputListener l : listeners) //Notify all listeners of the tap
 			if(l.onMouseClicked(Gdx.input.getX(), Gdx.input.getY(), button))
