@@ -31,7 +31,9 @@ jobs:
       - name: Build APK
         id: build
         continue-on-error: true
-        run: gradle --no-daemon --stacktrace --console=plain :android:assembleDebug 2>&1 | tee build.log
+        run: |
+          set -o pipefail
+          gradle --no-daemon --stacktrace --console=plain :android:assembleDebug 2>&1 | tee build.log
 
       - name: Upload Gradle outputs for diagnosis
         if: always()
