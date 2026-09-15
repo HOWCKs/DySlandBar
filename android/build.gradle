@@ -1,0 +1,72 @@
+android {
+    namespace 'com.jmrapp.terralegion.android'
+    compileSdkVersion 35
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+
+    }
+    packagingOptions {
+        exclude 'META-INF/robovm/ios/robovm.xml'
+    }
+    defaultConfig {
+        ndk { abiFilters 'arm64-v8a' }
+        applicationId "com.portmobileterraria.tlauncher"
+        minSdkVersion 31
+        targetSdkVersion 35
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+        }
+    }
+}
+// called every time gradle gets executed, takes the native dependencies of
+// the natives configuration, and extracts them to the proper libs/ folders
+// so they get packed with the APK.
+task copyAndroidNatives() {
+    file("libs/arm64-v8a/").mkdirs()
+    configurations.natives.files.each { jar ->
+        if (jar.name.endsWith("natives-arm64-v8a.jar")) {
+            copy {
+                from zipTree(jar)
+                into file("libs/arm64-v8a")
+                include "*.so"
+            }
+        }
+    }
+}
+
+task run(type: Exec) {
+    def path
+    def localProperties = project.file("../local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream { instr ->
+            properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        if (sdkDir) {
+            path = sdkDir
+        } else {
+            path = "$System.env.ANDROID_HOME"
+        }
+    } else {
+        path = "$System.env.ANDROID_HOME"
+    }
+
+    def adb = path + "/platform-tools/adb"
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.jmrapp.terralegion.android/AndroidLauncher'
+}
+
+preBuild.dependsOn copyAndroidNatives
