@@ -42,7 +42,7 @@ jobs:
           grep -E 'FAILURE:|What went wrong:|Execution failed|error:|Error:' build.log | tail -40 || true
           while IFS= read -r line; do
             echo "::error title=Gradle::$line"
-          done < <(grep -E 'FAILURE:|What went wrong:|Execution failed|error:|Error:' build.log | tail -20)
+          done < <(tail -100 build.log)
 
       - name: Upload Gradle outputs for diagnosis
         if: always()
