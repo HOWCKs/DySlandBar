@@ -35,6 +35,15 @@ jobs:
           set -o pipefail
           gradle --no-daemon --stacktrace --console=plain :android:assembleDebug 2>&1 | tee build.log
 
+      - name: Surface Gradle failure summary
+        if: steps.build.outcome == 'failure'
+        run: |
+          echo 'Gradle failure summary:'
+          grep -E 'FAILURE:|What went wrong:|Execution failed|error:|Error:' build.log | tail -40 || true
+          while IFS= read -r line; do
+            echo "::error title=Gradle::$line"
+          done < <(grep -E 'FAILURE:|What went wrong:|Execution failed|error:|Error:' build.log | tail -20)
+
       - name: Upload Gradle outputs for diagnosis
         if: always()
         uses: actions/upload-artifact@v4
