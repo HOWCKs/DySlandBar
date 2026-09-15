@@ -43,7 +43,11 @@ jobs:
           retention-days: 7
 
       - name: Verify APK
-        run: test -s android/build/outputs/apk/debug/android-debug.apk
+        run: |
+          APK=$(find android/build/outputs/apk -type f -name '*.apk' | head -n 1)
+          test -n "$APK"
+          test -s "$APK"
+          cp "$APK" android-debug.apk
 
       - name: Fail if build failed
         if: steps.build.outcome == 'failure'
@@ -53,6 +57,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: terra-legion-android-debug
-          path: android/build/outputs/apk/debug/android-debug.apk
+          path: android-debug.apk
           if-no-files-found: error
           retention-days: 14
