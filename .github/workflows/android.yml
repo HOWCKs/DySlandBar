@@ -39,10 +39,10 @@ jobs:
         if: steps.build.outcome == 'failure'
         run: |
           echo 'Gradle failure summary:'
-          grep -E 'FAILURE:|What went wrong:|Execution failed|error:|Error:' build.log | tail -40 || true
+          grep -iE 'failure:|what went wrong:|execution failed|error|resource|aapt|failed' build.log | tail -60 || true
           while IFS= read -r line; do
             echo "::error title=Gradle::$line"
-          done < <(tail -100 build.log)
+          done < <(grep -iE 'failure:|what went wrong:|execution failed|error|resource|aapt|failed' build.log | tail -60)
 
       - name: Upload Gradle outputs for diagnosis
         if: always()
