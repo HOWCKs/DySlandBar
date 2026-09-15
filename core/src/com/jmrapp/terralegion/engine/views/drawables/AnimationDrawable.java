@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.ObjectMap;
  */
 public class AnimationDrawable implements Drawable {
 
-    private ObjectMap<Type, Animation<TextureRegion>> animations = new ObjectMap<Type, Animation>();
+    private ObjectMap<Type, Animation<TextureRegion>> animations = new ObjectMap<Type, Animation<TextureRegion>>();
     private Animation<TextureRegion> animation;
 
     public enum Type {
