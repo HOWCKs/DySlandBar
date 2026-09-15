@@ -33,6 +33,15 @@ jobs:
         continue-on-error: true
         run: gradle --no-daemon --stacktrace --console=plain :android:assembleDebug 2>&1 | tee build.log
 
+      - name: Upload Gradle outputs for diagnosis
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-outputs
+          path: android/build/outputs
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Upload build log
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,7 +53,9 @@ jobs:
 
       - name: Verify APK
         run: |
-          APK=$(find android/build/outputs/apk -type f -name '*.apk' | head -n 1)
+          echo 'Generated files:'
+          find android/build -type f | sort | tail -100 || true
+          APK=$(find . -type f -name '*.apk' -print -quit)
           test -n "$APK"
           test -s "$APK"
           cp "$APK" android-debug.apk
