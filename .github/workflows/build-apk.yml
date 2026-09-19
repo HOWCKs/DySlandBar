@@ -37,8 +37,8 @@ jobs:
 
       - name: Build debug APK
         run: |
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace --console=plain > /tmp/gradle.log 2>&1
-          rc=$?
+          rc=0
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace --console=plain > /tmp/gradle.log 2>&1 || rc=$?
           if [ $rc -ne 0 ]; then
             echo "::error::Gradle build failed (exit $rc) — last 45 lines of the log:"
             tail -n 45 /tmp/gradle.log | while IFS= read -r line; do
