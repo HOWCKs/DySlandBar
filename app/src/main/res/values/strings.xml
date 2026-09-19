@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dynamic Material Island</string>
+
+    <string name="notif_channel_name">Capsule service</string>
+    <string name="notif_channel_desc">Keeps the floating capsule available above every app.</string>
+    <string name="notif_title_capsule_active">Capsule is active</string>
+    <string name="notif_text_capsule_active">Tap the capsule on screen to expand controls.</string>
+    <string name="notif_action_exit">Exit</string>
+</resources>
