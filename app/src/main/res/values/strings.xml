@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DySlandBar</string>
+    <string name="accessibility_service_label">Cápsula DySlandBar</string>
+    <string name="accessibility_service_description">Exibe a cápsula visual sobre outros aplicativos e prepara gestos rápidos. Não lê nem coleta o conteúdo das telas.</string>
+</resources>
