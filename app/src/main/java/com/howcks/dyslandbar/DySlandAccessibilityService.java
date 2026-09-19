@@ -43,7 +43,8 @@ public final class DySlandAccessibilityService extends AccessibilityService {
                     | AccessibilityEvent.TYPE_VIEW_SCROLLED;
             serviceInfo.feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC;
             serviceInfo.notificationTimeout = 100;
-            serviceInfo.flags = AccessibilityServiceInfo.FLAG_DEFAULT;
+            // The service has no key-event or window-content flags in the first build.
+            serviceInfo.flags = 0;
             setServiceInfo(serviceInfo);
         }
 
